@@ -9,7 +9,7 @@ class Prompts extends Component {
         super(props);
         this.state = {
             currentPrompt: 'Verb ending in -ing',
-            nextPrompts: ['adjective', 'adjective', 'place', 'animal (plural)', 'noun', 'unit of time', 'part of body (plural)', 'adjective', 'adjective'],
+            nextPrompts: ['adjective', 'another adjective', 'place', 'animal (plural)', 'noun', 'unit of time', 'part of body (plural)', 'adjective', 'one last adjective'],
             thisResponse: '',
             complete: false,
         }
@@ -29,13 +29,19 @@ class Prompts extends Component {
         } else {this.setState({complete: true})}
     }
 
+    enterHandler = (event) => {
+        if (event.key === '13'){
+            this.submitHandler;
+        }
+    }
+
     render() {
         return (
             <div className="Madlibs">
                 {(this.state.complete === false)
                 ? <div className="Prompt">
                     <h1>{this.state.currentPrompt}</h1>
-                    <input type="text" value={this.state.thisResponse} onChange={this.changeHandler} />
+                    <input type="text" value={this.state.thisResponse} onChange={this.changeHandler} onSubmit={this.submitHandler}/>
                     <button onClick = {this.submitHandler}>Submit</button>
                 </div>
                 : <Results words={this.props.words} />
